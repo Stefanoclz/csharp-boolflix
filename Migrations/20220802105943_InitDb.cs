@@ -22,18 +22,6 @@ namespace csharp_boolflix.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlayedHistories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlayedHistories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Playlists",
                 columns: table => new
                 {
@@ -47,34 +35,6 @@ namespace csharp_boolflix.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Profiles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsChild = table.Column<bool>(type: "bit", nullable: false),
-                    PlayedHistoryId = table.Column<int>(type: "int", nullable: false),
-                    PlaylistId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Profiles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Profiles_PlayedHistories_PlayedHistoryId",
-                        column: x => x.PlayedHistoryId,
-                        principalTable: "PlayedHistories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Profiles_Playlists_PlaylistId",
-                        column: x => x.PlaylistId,
-                        principalTable: "Playlists",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "VideoContents",
                 columns: table => new
                 {
@@ -84,23 +44,32 @@ namespace csharp_boolflix.Migrations
                     CoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlayedHistoryId = table.Column<int>(type: "int", nullable: true),
-                    ProfileId = table.Column<int>(type: "int", nullable: true)
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VideoContents", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Profiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsChild = table.Column<bool>(type: "bit", nullable: false),
+                    PlaylistId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VideoContents_PlayedHistories_PlayedHistoryId",
-                        column: x => x.PlayedHistoryId,
-                        principalTable: "PlayedHistories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_VideoContents_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "Id");
+                        name: "FK_Profiles_Playlists_PlaylistId",
+                        column: x => x.PlaylistId,
+                        principalTable: "Playlists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -151,6 +120,30 @@ namespace csharp_boolflix.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProfileVideoContent",
+                columns: table => new
+                {
+                    ProfilesId = table.Column<int>(type: "int", nullable: false),
+                    VideoContentsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProfileVideoContent", x => new { x.ProfilesId, x.VideoContentsId });
+                    table.ForeignKey(
+                        name: "FK_ProfileVideoContent_Profiles_ProfilesId",
+                        column: x => x.ProfilesId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProfileVideoContent_VideoContents_VideoContentsId",
+                        column: x => x.VideoContentsId,
+                        principalTable: "VideoContents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_GenreVideoContent_VideoContentsId",
                 table: "GenreVideoContent",
@@ -162,25 +155,15 @@ namespace csharp_boolflix.Migrations
                 column: "VideoContentsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_PlayedHistoryId",
+                name: "IX_Profiles_PlaylistId",
                 table: "Profiles",
-                column: "PlayedHistoryId",
+                column: "PlaylistId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_PlaylistId",
-                table: "Profiles",
-                column: "PlaylistId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VideoContents_PlayedHistoryId",
-                table: "VideoContents",
-                column: "PlayedHistoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VideoContents_ProfileId",
-                table: "VideoContents",
-                column: "ProfileId");
+                name: "IX_ProfileVideoContent_VideoContentsId",
+                table: "ProfileVideoContent",
+                column: "VideoContentsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -192,16 +175,16 @@ namespace csharp_boolflix.Migrations
                 name: "PlaylistVideoContent");
 
             migrationBuilder.DropTable(
-                name: "Genres");
+                name: "ProfileVideoContent");
 
             migrationBuilder.DropTable(
-                name: "VideoContents");
+                name: "Genres");
 
             migrationBuilder.DropTable(
                 name: "Profiles");
 
             migrationBuilder.DropTable(
-                name: "PlayedHistories");
+                name: "VideoContents");
 
             migrationBuilder.DropTable(
                 name: "Playlists");

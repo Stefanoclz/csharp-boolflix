@@ -9,7 +9,6 @@ namespace csharp_boolflix.DataBase
         public DbSet<Film> Films { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Profile> Profiles { get; set; }
-        public DbSet<PlayedHistory> PlayedHistories { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
