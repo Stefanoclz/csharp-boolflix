@@ -7,6 +7,6 @@ namespace csharp_boolflix.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<VideoContent> VideoContents { get; set; }
+        public List<VideoContent>? VideoContents { get; set; }
     }
 }

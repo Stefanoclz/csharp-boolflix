@@ -2,6 +2,9 @@
 {
     public class Film : VideoContent
     {
+        public Film()
+        {
 
+        }
     }
 }

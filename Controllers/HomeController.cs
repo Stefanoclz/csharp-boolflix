@@ -1,4 +1,5 @@
-﻿using csharp_boolflix.Models;
+﻿using csharp_boolflix.DataBase;
+using csharp_boolflix.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,13 +16,16 @@ namespace csharp_boolflix.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            using(BoolflixContext db = new BoolflixContext())
+            {
+                List<VideoContent> list = db.VideoContents.ToList();
+                int max = list.Count;
+                
+                return View(list);
+            }
+            
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

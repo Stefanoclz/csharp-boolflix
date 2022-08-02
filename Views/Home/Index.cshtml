@@ -1,8 +1,27 @@
-﻿@{
+﻿
+@model List<VideoContent>
+
+@{
     ViewData["Title"] = "Home Page";
+    Random random = new Random();
+    int max = @Model.Count();
+    int randomNumber = random.Next(1, max);
+    
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+@foreach(VideoContent video in @Model)
+    {
+        @if(video.Id == randomNumber)
+        {
+            <div class="jumbo " style="background-image: url('@video.CoverImage')";>
+                <div class="textContainer mb-2 text-dark">
+                    <h2 class="bg-grey bg-opacity-50">@video.Title</h2>
+                    <h4 class="bg-grey bg-opacity-50">Durata: @video.Duration minuti</h4>
+                </div>
+    
+            </div>
+        }
+    }
+
+

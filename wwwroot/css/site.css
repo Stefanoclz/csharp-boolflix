@@ -20,3 +20,28 @@ body {
 .bg-grey{
     background-color: darkgrey
 }
+
+.jumbo {
+    width: 100%;
+    height: 700px;
+    position: relative;
+    display: flex;
+    background-repeat: no-repeat;
+    object-fit: contain;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    background-position: center;
+    border: 1px solid white;
+}
+
+
+.textContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    padding-bottom: 20px;
+}

@@ -12,7 +12,7 @@ namespace csharp_boolflix.Models
 
         public List<VideoContent> VideoContents { get; set; }
 
-        public int PlaylistId { get; set; }
+        public int? PlaylistId { get; set; }
         public Playlist Playlist { get; set; }
 
     }
