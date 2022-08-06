@@ -81,12 +81,13 @@ for (let i = 0; i < next.length; i++) {
     window.addEventListener("resize", e => (width = carousel[i].offsetWidth));
 
     next[i].addEventListener("click", e => {
-      console.log(`pressed next ${i}`);
+      console.log("carousel[i].scrollWidth", carousel[i].scrollWidth);
+      console.log("carousel[i].scrollLeft + width", carousel[i].scrollLeft + width);
       carousel[i].scrollBy(width + gap, 0);
       if (carousel[i].scrollWidth !== 0) {
         prev[i].style.display = "flex";
       }
-      if (content.scrollWidth - width - gap <= carousel[i].scrollLeft + width) {
+      if (carousel[i].scrollWidth - gap <= carousel[i].scrollLeft + width) {
         next[i].style.display = "none";
       }
     });
