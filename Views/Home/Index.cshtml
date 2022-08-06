@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    var playlists = ViewData["Playlists"] as List<Playlist>;
+
+
     Random random = new Random();
     int max = @Model.Count();
     int randomNumber = random.Next(1, max);
@@ -14,10 +17,11 @@
     {
         @if(video.Id == randomNumber)
         {
-            <div class="jumbo " style="background-image: url('@video.CoverImage')";>
+            <div class="jumbo">
+                <img class="jumbo-img" src="@video.CoverImage" />
                 <div class="textContainer mb-2 text-dark">
-                    <h2 class="bg-grey bg-opacity-50">@video.Title</h2>
-                    <h4 class="bg-grey bg-opacity-50">Durata: @video.Duration minuti</h4>
+                    <h2>@video.Title</h2>
+                    <h4>Durata: @video.Duration minuti</h4>
                 </div>
     
             </div>
@@ -25,3 +29,74 @@
     }
 
 
+<div class="w-100 bg-dark container-fluid">
+    @foreach(Playlist pl in playlists)
+    {
+        <div class="row ps-5 my-3 wrapper">
+            <button class="left-scroll">
+                    <svg xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" d="M0 0h24v24H0V0z" />
+                      <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                    </svg>
+                </button>
+                <button class="right-scroll">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <path fill="none" d="M0 0h24v24H0V0z" />
+                      <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+                    </svg>
+                </button>
+            <h3 class=" text-white">@pl.Name</h3>
+            <div class="d-flex flex-row flex-nowrap carousel" onclick="check(event)">
+                @foreach(VideoContent video in pl.VideoContents)
+                {
+                    <div class="col-2 mx-2 content">
+                        <img src="@video.CoverImage" class="card-img" />
+                    </div>
+                }
+   
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+
+const gap = 16;
+
+const carousel = document.querySelector(".carousel");
+const content = document.querySelector(".content");
+const next = document.querySelector(".right-scroll");
+const prev = document.querySelector(".left-scroll");
+
+let width = carousel.offsetWidth;
+window.addEventListener("resize", e => (width = carousel.offsetWidth));
+
+next.addEventListener("click", e => {
+  carousel.scrollBy(width + gap, 0);
+  if (carousel.scrollWidth !== 0) {
+    prev.style.display = "flex";
+  }
+  if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+    next.style.display = "none";
+  }
+});
+prev.addEventListener("click", e => {
+  carousel.scrollBy(-(width + gap), 0);
+  console.log("per none <= 0", carousel.scrollLeft - width - gap)
+  if (carousel.scrollLeft - width - gap <= 0) {
+    prev.style.display = "none";
+  }
+  if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+    next.style.display = "flex";
+  }
+});
+
+
+
+
+function check(event) {
+    console.log(event);
+
+}
+
+</script>

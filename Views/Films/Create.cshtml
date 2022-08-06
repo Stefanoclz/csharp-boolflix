@@ -1,5 +1,4 @@
-﻿@model csharp_boolflix.Models.Film
-
+﻿@model Film
 @{
     ViewData["Title"] = "Create";
 }
@@ -31,6 +30,23 @@
                 <label asp-for="Type" class="control-label"></label>
                 <input asp-for="Type" class="form-control" />
                 <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h5>Genre</h5>
+                
+                <select asp-for="@Model.ReferenceGenres"
+                    multiple="multiple" 
+                    size="10" 
+                    class="form-control mb-2 mr-sm-2 ml-sm-3 leftlist" 
+                    asp-items="@Model.Genres">
+                </select>
+
+                @*<select asp-for="GenresList" class="form-control">
+                    @foreach(Genre gen in Genres)
+                    { 
+                        <option value="@gen">@gen.Name</option>
+                    }
+                </select>*@                
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

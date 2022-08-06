@@ -20,6 +20,20 @@ namespace csharp_boolflix.Controllers
             {
                 List<VideoContent> list = db.VideoContents.ToList();
                 int max = list.Count;
+
+                List<Genre> genres = db.Genres.ToList();
+
+                List<Playlist> PlaylistsList = new List<Playlist>();
+
+                foreach (Genre gen in genres)
+                {
+                    Playlist playlist = new Playlist();
+
+                    PlaylistsList.Add(playlist.PlaylistGenre(gen));
+                }
+
+
+                ViewData["Playlists"] = PlaylistsList;
                 
                 return View(list);
             }

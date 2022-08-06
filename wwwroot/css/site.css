@@ -1,3 +1,9 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
 html {
   font-size: 14px;
 }
@@ -23,25 +29,83 @@ body {
 
 .jumbo {
     width: 100%;
-    height: 700px;
+    height: 800px;
     position: relative;
-    display: flex;
-    background-repeat: no-repeat;
-    object-fit: contain;
-    flex-direction: column;
-    justify-content: center;
-    align-items:center;
-    background-position: center;
-    border: 1px solid white;
+
 }
 
+.jumbo-img {
+    width: 100%;
+    height: 100%;
+    object-fit:contain;
+}
 
 .textContainer{
-    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: flex-end;
-    height: 100%;
     padding-bottom: 20px;
+    position: absolute;
+    left: 20%;
+    bottom: 5%;
+    background-color: grey;
+    opacity: 90%;
 }
+
+.card-img{
+    width: 100%;
+    height: 300px;
+    object-fit: scale-down;
+}
+
+.left-scroll, .right-scroll {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background: white;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    outline: 0;
+    cursor: pointer;
+    z-index: 3;
+    width: 40px;
+}
+
+.left-scroll {
+    position: absolute;
+    top: 50%;
+    left: 3%;
+    transform: translate(50%, -50%);
+    display: none;
+}
+
+.right-scroll {
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    /*display: flex;*/
+    transform: translate(-50%, -50%);
+}
+
+.wrapper {
+    width: 100vw;
+    height: 300px;
+    /*max-width: 964px;*/
+    position: relative;
+}
+
+.carousel {
+    overflow: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /*position: absolute;
+    top: 0%;
+    left: 0%;*/
+}
+
+.carousel::-webkit-scrollbar {
+    height: 0;
+}
+

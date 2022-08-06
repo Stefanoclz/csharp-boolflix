@@ -10,114 +10,88 @@ using csharp_boolflix.Models;
 
 namespace csharp_boolflix.Controllers
 {
-    public class FilmsController : Controller
+    public class PlaylistsController : Controller
     {
         private readonly BoolflixContext _context;
 
-        public FilmsController(BoolflixContext context)
+        public PlaylistsController(BoolflixContext context)
         {
             _context = context;
         }
 
-        // GET: Films
+        // GET: Playlists
         public async Task<IActionResult> Index()
         {
-              return _context.Films != null ? 
-                          View(await _context.Films.ToListAsync()) :
-                          Problem("Entity set 'BoolflixContext.Films'  is null.");
+              return _context.Playlists != null ? 
+                          View(await _context.Playlists.ToListAsync()) :
+                          Problem("Entity set 'BoolflixContext.Playlists'  is null.");
         }
 
-        // GET: Films/Details/5
+        // GET: Playlists/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Films == null)
+            if (id == null || _context.Playlists == null)
             {
                 return NotFound();
             }
 
-            var film = await _context.Films
+            var playlist = await _context.Playlists
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (film == null)
+            if (playlist == null)
             {
                 return NotFound();
             }
 
-            return View(film);
+            return View(playlist);
         }
 
-        // GET: Films/Create
+        // GET: Playlists/Create
         public IActionResult Create()
         {
-            using(BoolflixContext db = new BoolflixContext())
-            {
-                List<Genre> GenresList = db.Genres.ToList();
-
-                List<SelectListItem> SelectList = new List<SelectListItem>();
-
-                foreach(Genre genre in GenresList)
-                {
-                    SelectList.Add(new SelectListItem() { Text = genre.Name, Value = genre.Id.ToString() });
-                }
-
-                Film film = new Film();
-                film.Genres = SelectList;
-
-                return View(film);
-            }
-            
+            return View();
         }
 
-        // POST: Films/Create
+        // POST: Playlists/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Film film)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Playlist playlist)
         {
             if (ModelState.IsValid)
             {
-                List<Genre> GenList = new List<Genre>();
-
-                foreach(string str in film.ReferenceGenres)
-                {
-                    int findId = int.Parse(str);
-                    GenList.Add(_context.Genres.Where(g => g.Id == findId).FirstOrDefault());
-                }
                 
-                film.GenresList = GenList;
-                string cavolo = "gnegnegne";
-
-                _context.Add(film);
+                _context.Add(playlist);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(film);
+            return View(playlist);
         }
 
-        // GET: Films/Edit/5
+        // GET: Playlists/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Films == null)
+            if (id == null || _context.Playlists == null)
             {
                 return NotFound();
             }
 
-            var film = await _context.Films.FindAsync(id);
-            if (film == null)
+            var playlist = await _context.Playlists.FindAsync(id);
+            if (playlist == null)
             {
                 return NotFound();
             }
-            return View(film);
+            return View(playlist);
         }
 
-        // POST: Films/Edit/5
+        // POST: Playlists/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CoverImage,Duration,Type")] Film film)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Playlist playlist)
         {
-            if (id != film.Id)
+            if (id != playlist.Id)
             {
                 return NotFound();
             }
@@ -126,12 +100,12 @@ namespace csharp_boolflix.Controllers
             {
                 try
                 {
-                    _context.Update(film);
+                    _context.Update(playlist);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FilmExists(film.Id))
+                    if (!PlaylistExists(playlist.Id))
                     {
                         return NotFound();
                     }
@@ -142,49 +116,49 @@ namespace csharp_boolflix.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(film);
+            return View(playlist);
         }
 
-        // GET: Films/Delete/5
+        // GET: Playlists/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Films == null)
+            if (id == null || _context.Playlists == null)
             {
                 return NotFound();
             }
 
-            var film = await _context.Films
+            var playlist = await _context.Playlists
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (film == null)
+            if (playlist == null)
             {
                 return NotFound();
             }
 
-            return View(film);
+            return View(playlist);
         }
 
-        // POST: Films/Delete/5
+        // POST: Playlists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Films == null)
+            if (_context.Playlists == null)
             {
-                return Problem("Entity set 'BoolflixContext.Films'  is null.");
+                return Problem("Entity set 'BoolflixContext.Playlists'  is null.");
             }
-            var film = await _context.Films.FindAsync(id);
-            if (film != null)
+            var playlist = await _context.Playlists.FindAsync(id);
+            if (playlist != null)
             {
-                _context.Films.Remove(film);
+                _context.Playlists.Remove(playlist);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FilmExists(int id)
+        private bool PlaylistExists(int id)
         {
-          return (_context.Films?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Playlists?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
