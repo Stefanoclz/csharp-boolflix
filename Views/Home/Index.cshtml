@@ -4,12 +4,45 @@
 @{
     ViewData["Title"] = "Home Page";
     var playlists = ViewData["Playlists"] as List<Playlist>;
-
+    var profile = ViewData["profile"] as Profile;
+    var account = ViewData["account"] as Account;
 
     Random random = new Random();
     int max = @Model.Count();
     int randomNumber = random.Next(1, max);
     
+}
+
+@section Header
+{
+    <div class="left-nav text-white">
+        <ul class="d-flex flex-row list-unstyled">
+            <li>
+                <a class="text-decoration-none text-white" href="@Url.Action("Index","Home",new{id = @profile.Id})">Home</a>
+            </li>
+            <li>
+                <a class="text-decoration-none text-white" href="@Url.Action("FilterType","Home",new{type = "Series"})">Serie TV</a>
+            </li>
+            <li>
+                <a class="text-decoration-none text-white" href="@Url.Action("FilterType","Home",new{type = "Film"})">Film</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="right-nav text-white d-flex flex-row">
+        <div class="profile-box">
+            @profile.Name
+        </div>
+        <div class="hover-profile d-none">
+            @foreach(Profile prof in @account.ProfilesList)
+            {
+                <a class="text-decoration-none text-white" href="@Url.Action("Index","Home",new{id = @prof.Id})">@prof.Name</a>
+            }
+            <a class="text-decoration-none text-white border-bottom" href="@Url.Action("ProfilesManage","Home",new{id = @account.Id})">Gestisci profili</a>
+            <a class="text-decoration-none text-white border-bottom" href="@Url.Action("AccountManage","Home",new{id = @account.Id})">Account</a>
+            <a class="text-decoration-none text-white border-bottom" href="@Url.Action("Login","Access")">Esci da Netflix</a>
+        </div>
+    </div>
 }
 
 
@@ -68,11 +101,6 @@ let carousel = document.querySelectorAll(".carousel"),
      next = document.querySelectorAll(".right-scroll"),
      prev = document.querySelectorAll(".left-scroll");
 
-console.log("carousel", carousel);
-console.log("content", content);
-console.log("next", next);
-console.log("prev", prev);
-
 
 
 for (let i = 0; i < next.length; i++) {
@@ -124,17 +152,17 @@ for (let i = 0; i < next.length; i++) {
 //});
 
 
-function check() {
-let carousel = document.querySelectorAll(".carousel"),
-     content = document.querySelectorAll(".content"),
-     next = document.querySelectorAll(".right-scroll"),
-     prev = document.querySelectorAll(".left-scroll");
+//function check() {
+//let carousel = document.querySelectorAll(".carousel"),
+//     content = document.querySelectorAll(".content"),
+//     next = document.querySelectorAll(".right-scroll"),
+//     prev = document.querySelectorAll(".left-scroll");
 
-    console.log("carousel", carousel);
-    console.log("content", content);
-    console.log("next", next);
-    console.log("prev", prev);
+//    console.log("carousel", carousel);
+//    console.log("content", content);
+//    console.log("next", next);
+//    console.log("prev", prev);
 
-}
+//}
 
 </script>

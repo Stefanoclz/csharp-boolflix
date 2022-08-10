@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using csharp_boolflix.DataBase;
 
@@ -11,9 +12,10 @@ using csharp_boolflix.DataBase;
 namespace csharp_boolflix.Migrations
 {
     [DbContext(typeof(BoolflixContext))]
-    partial class BoolflixContextModelSnapshot : ModelSnapshot
+    [Migration("20220807104532_RegistrationMode")]
+    partial class RegistrationMode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,26 +37,17 @@ namespace csharp_boolflix.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SubsName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SubscriptionId")
+                    b.Property<int>("SubscriptionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PaymentId");
 
                     b.HasIndex("SubscriptionId");
 
@@ -86,13 +79,7 @@ namespace csharp_boolflix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CardName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CardSurname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GiftCode")
@@ -170,21 +157,15 @@ namespace csharp_boolflix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("MaxProfilesNumber")
+                    b.Property<int>("MaxProfilesNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Resolution")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoQuality")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -279,15 +260,11 @@ namespace csharp_boolflix.Migrations
 
             modelBuilder.Entity("csharp_boolflix.Models.Account", b =>
                 {
-                    b.HasOne("csharp_boolflix.Models.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId");
-
                     b.HasOne("csharp_boolflix.Models.Subscription", "Sub")
                         .WithMany()
-                        .HasForeignKey("SubscriptionId");
-
-                    b.Navigation("Payment");
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Sub");
                 });

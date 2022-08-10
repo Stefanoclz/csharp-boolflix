@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "_LayoutEntry";
+    string email = "";
+    string password = "";
+}
+
+@section Header
+{
+    <div class="container my-5 text-white d-flex flex-column text-center align-items-center justify-content-center">
+        
+        <h4 class="fs-4">
+            Inserisci i tuoi dati per accedere.
+        </h4>
+        <form class="d-flex flex-row" asp-controller="Access" asp-action="CheckLogin" method="post">
+            @Html.AntiForgeryToken()
+            <div class="w-100">
+                <strong>Email</strong>
+                <input asp-for="@email" type="email" placeholder="Inserisci email" class="form-control" />
+            </div>
+            <div class="w-100">
+                <strong>Password</strong>
+                <input asp-for="@password" type="password" placeholder="Inserisci la password" class="form-control" />
+            </div>
+
+            <input type="submit" value="Inizia" class="btn btn-danger py-2 px-4" />
+        </form>
+    </div>
+}

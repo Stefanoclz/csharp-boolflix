@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "_LayoutRegister";
+
+    var account = ViewData["account"] as Account;
+
+    var subs = ViewData["subslist"] as List<Subscription>;
+
+}
+
+<div class="w-50 m-auto">
+    <p>Passaggio 2 di 3</p>
+    <h1>Scegli il piano più adatto a te</h1>
+    <ul class="check-list">
+        <h4>
+            <li>
+                Guarda tutto ciò che vuoi. Senza pubblicità.
+            </li>
+        </h4>
+        <h4>
+            <li>
+                Suggerimenti su misura per te.
+            </li>
+        </h4>
+        <h4>
+            <li>
+                Cambia piano o disdici quando vuoi.
+            </li>
+        </h4>
+    </ul>
+
+    <form asp-controller="Access" asp-action="Register3" method="post" class="text-center">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="@account.Email" value="@account.Email" />
+        <input type="hidden" asp-for="@account.Password" value="@account.Password" />
+        <div class="w-100 d-flex flex-row my-2">
+            @foreach(Subscription sub in @subs)
+            {
+                <div class="col-4 border-1 text-center">
+                    <h1>@sub.Name</h1>
+                    <p><strong>Qualita Video: @sub.VideoQuality</strong></p>
+                    <p><strong>Risoluzione: @sub.Resolution</strong></p>
+                    <h3>Quota Mensile: @sub.Price</h3>
+                    <input type="submit" asp-for="@account.SubsName" value="@sub.Name" />
+                </div>
+            }
+        </div>
+    </form>
+    
+</div>

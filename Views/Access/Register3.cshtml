@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "_LayoutRegister";
+
+    //var account = ViewData["account"] as Account;
+
+    string payName = "";
+}
+
+@model Account
+
+<div class="w-50 m-auto text-center">
+    <img class="my-4" src="https://assets.nflxext.com/ffe/siteui/acquisition/simplicity/Lock.png" />
+    <p>Passaggio 2 di 3</p>
+    <h1>Imposta il pagamento</h1>
+    <p>Il tuo abbonamento avrà inizio quando imposterai il pagamento.</p>
+    <h4>Senza impegno. <br />Disdici online quando vuoi.</h4>
+    <form asp-controller="Access" asp-action="Pay" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="@Model.Email" value="@Model.Email" />
+        <input type="hidden" asp-for="@Model.Password" value="@Model.Password" />
+        <input type="hidden" asp-for="@Model.SubsName" value="@Model.SubsName" />
+        <input type="hidden" asp-for="@Model.Sub" value="@Model.Sub" />
+        <input type="hidden" asp-for="@Model.SubscriptionId" value="@Model.SubscriptionId" />
+        <input type="hidden" asp-for="@Model.Sub.Name" value="@Model.Sub.Name" />
+
+            <div class="w-100 border-1 d-flex flex-row justify-content-between px-4">
+                <p>Credit Card / Debit Card</p>
+                    <input type="submit" asp-for="@payName" value="Credit Card / Debit Card" class="btn btn-light py-2 px-4" />
+            </div>
+
+            <div class="w-100 border-1 d-flex flex-row justify-content-between px-4">
+                <p>PayPal</p>
+                    <input type="submit" asp-for="@payName" value="PayPal" class="btn btn-light py-2 px-4" />
+            </div>
+
+            <div class="w-100 border-1 d-flex flex-row justify-content-between px-4">
+                <p>GiftCard</p>
+                    <input type="submit" asp-for="@payName" value="GiftCard" class="btn btn-light py-2 px-4" />
+            </div>
+       
+    </form>
+</div>

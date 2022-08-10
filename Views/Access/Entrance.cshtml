@@ -1,0 +1,92 @@
+﻿@{
+    Layout = "_LayoutEntry";
+    string email = "";
+}
+
+@section Header
+{
+    <div class="container my-5 text-white d-flex flex-column text-center align-items-center justify-content-center">
+        <h1 class="fs-1">
+            Film, serie TV e tanto altro. Senza limiti.
+        </h1>
+        <h4 class="fs-4">
+            Guarda ciò che vuoi ovunque. Disdici quando vuoi.
+        </h4>
+        <p>
+            <strong>
+                Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.
+            </strong>
+        </p>
+        <form class="d-flex flex-row" asp-controller="Access" asp-action="Register" method="GET">
+            <input asp-for="@email" type="email" placeholder="Inserisci email" />
+            <input type="submit" value="Inizia" class="btn btn-danger py-2 px-4" />
+        </form>
+    </div>
+}
+
+<section class="bg-black w-100">
+    <div class=" d-flex flex-row text-white align-items-center justify-content-center py-5 w-50 m-auto">
+        <div>
+            <h1>
+                Goditi Netflix sulla tua TV.
+            </h1>
+            <h6>
+                Guarda Netflix su smart TV, Playstation, Xbox, Chromecast, Apple TV, lettori Blu-ray e molti altri dispositivi.
+            </h6>
+        </div>
+        <div>
+            <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png" />
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-black w-100">
+    <div class=" d-flex flex-row text-white align-items-center justify-content-center py-5 w-50 m-auto">
+        <div>
+            <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg" />
+        </div>
+        <div>
+            <h1>
+                Scarica le tue serie da guardare offline.
+            </h1>
+            <h6>
+                Salva facilmente i tuoi preferiti così avrai sempre qualcosa da guardare.
+            </h6>
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-black w-100">
+    <div class=" d-flex flex-row text-white align-items-center justify-content-center py-5 w-50 m-auto">
+        <div>
+            <h1>
+                Guarda Netflix ovunque.
+            </h1>
+            <h6>
+                Cellulare, tablet, laptop e TV: scegli tu cosa usare per guardare in streaming film e serie TV senza limiti e senza spendere di più.
+            </h6>
+        </div>
+        <div>
+            <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/device-pile.png" />
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-black w-100">
+    <div class=" d-flex flex-row text-white align-items-center justify-content-center py-5 w-50 m-auto">
+        <div>
+            <img src="https://occ-0-2528-784.1.nflxso.net/dnm/api/v6/19OhWN2dO19C9txTON9tvTFtefw/AAAABUNsZVszA3HGW04LpkU1tiYnMIoqpcN6YbGSXu5OXQrvWLP1tn7Tee0YM-dJfCazJNwBKnR35ZoqbjE7gTezX57yHz57zixtKS1g.png?r=dda" />
+        </div>
+        <div>
+            <h1>
+                Crea profili per i bambini.
+            </h1>
+            <h6>
+                I bambini scoprono nuove avventure in compagnia dei loro personaggi preferiti in uno spazio tutto loro già incluso nel tuo abbonamento.
+            </h6>
+        </div>
+    </div>
+</section>

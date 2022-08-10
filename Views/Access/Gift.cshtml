@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "_LayoutRegister";
+}
+
+@model Account
+
+<div class="w-50 m-auto my-5">
+    <h1>Inserisci il codice della carta regalo</h1>
+    <form asp-controller="Access" asp-action="CheckPay" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="@Model.Email" value="@Model.Email" />
+        <input type="hidden" asp-for="@Model.Password" value="@Model.Password" />
+        <input type="hidden" asp-for="@Model.SubsName" value="@Model.SubsName" />
+        <input type="hidden" asp-for="@Model.Sub" value="@Model.Sub" />
+        <input type="hidden" asp-for="@Model.SubscriptionId" value="@Model.SubscriptionId" />
+        <input type="hidden" asp-for="@Model.Sub.Name" value="@Model.Sub.Name" />
+        <input type="hidden" asp-for="@Model.PaymentId" value="@Model.PaymentId" />
+        <input type="hidden" asp-for="@Model.Payment" value="@Model.Payment" />
+        <input type="hidden" asp-for="@Model.Payment.Name" value="@Model.Payment.Name" />
+
+        <div class="border-1 w-100">
+            <p>Inserisci il codice</p>
+            <input asp-for="Payment.GiftCode" class="form-control" />
+        </div>
+        
+        <input type="submit" class="btn btn-danger py-2 px-4" value="Invia" />
+    </form>
+</div>

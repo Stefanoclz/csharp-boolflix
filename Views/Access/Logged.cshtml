@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "_LayoutEntry";
+    var maxProfile = Model.Sub.MaxProfilesNumber;
+    var existingProfiles = Model.ProfilesList.Count();
+    var missingProfiles = maxProfile - existingProfiles;
+}
+
+@model Account
+
+@section Header
+{
+    <div class="w-75 d-flex flex-row m-auto">
+        
+        @for(int i = 0; i < @existingProfiles; i++)
+        {
+            <div style="width: (100% / @maxProfile) - 10px" class="h-25 text-center align-content-center">
+                @if(@Model.ProfilesList[i] != null && @Model.ProfilesList[i].IsChild == false)
+                {
+                    <a href="@Url.Action("Index","Home",new{id = @Model.ProfilesList[i].Id})" class="text-decoration-none text-white">
+                        <img src="https://www.freevector.com/uploads/vector/preview/3790/FreeVector-Stylized-Man.jpg" class="img-fluid" />
+                        <h1>@Model.ProfilesList[i].Name</h1>
+                    </a>
+                }
+                else if(@Model.ProfilesList[i] != null && @Model.ProfilesList[i].IsChild == true)
+                {
+                    <a href="@Url.Action("Index","Home",new{id = @Model.ProfilesList[i].Id})" class="text-decoration-none text-white">
+                        <img src="https://cdna.artstation.com/p/assets/images/images/010/190/698/large/hazem-desoky-render.jpg?1523056658" class="img-fluid" />
+                        <h1>@Model.ProfilesList[i].Name</h1>
+                    </a>
+                }
+                else
+                {
+                    <div class="w-100 h-100 d-flex flex-row justify-content-center align-items-center">
+                        <a class="text-decoration-none text-white" href="@Url.Action("AddProfile","Access",new {id = @Model.Id})"><h1>+</h1></a>
+                    </div>
+                }
+            </div>
+        }
+
+        @if(@missingProfiles > 0)
+        {
+            @for(int j = 0; j < @missingProfiles; j++)
+            {
+                <div class="w-100 h-100 d-flex flex-row justify-content-center align-items-center">
+                        <a class="text-decoration-none text-white" href="@Url.Action("AddProfile","Access",new {id = @Model.Id})"><h1>+</h1></a>
+                </div>
+            }
+        }
+
+
+    </div>
+}

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using csharp_boolflix.DataBase;
 
@@ -11,9 +12,10 @@ using csharp_boolflix.DataBase;
 namespace csharp_boolflix.Migrations
 {
     [DbContext(typeof(BoolflixContext))]
-    partial class BoolflixContextModelSnapshot : ModelSnapshot
+    [Migration("20220807160628_UpdateDB")]
+    partial class UpdateDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +42,6 @@ namespace csharp_boolflix.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PaymentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SubsName")
                         .HasColumnType("nvarchar(max)");
 
@@ -53,8 +52,6 @@ namespace csharp_boolflix.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PaymentId");
 
                     b.HasIndex("SubscriptionId");
 
@@ -177,6 +174,9 @@ namespace csharp_boolflix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PaymentId")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -187,6 +187,8 @@ namespace csharp_boolflix.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -279,15 +281,9 @@ namespace csharp_boolflix.Migrations
 
             modelBuilder.Entity("csharp_boolflix.Models.Account", b =>
                 {
-                    b.HasOne("csharp_boolflix.Models.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId");
-
                     b.HasOne("csharp_boolflix.Models.Subscription", "Sub")
                         .WithMany()
                         .HasForeignKey("SubscriptionId");
-
-                    b.Navigation("Payment");
 
                     b.Navigation("Sub");
                 });
@@ -307,6 +303,15 @@ namespace csharp_boolflix.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("Playlist");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Subscription", b =>
+                {
+                    b.HasOne("csharp_boolflix.Models.Payment", "Payment")
+                        .WithMany()
+                        .HasForeignKey("PaymentId");
+
+                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("GenreVideoContent", b =>

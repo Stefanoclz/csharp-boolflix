@@ -34,6 +34,15 @@ body {
 
 }
 
+.entry-bg {
+    background-image: url("https://redcapes.it/wp-content/uploads/2019/06/netflix.jpeg");
+    width: 100%;
+    height: 900px;
+    object-position: center;
+    object-fit: cover;
+    border-bottom: 8px solid grey;
+}
+
 .jumbo-img {
     width: 100%;
     height: 100%;
@@ -109,3 +118,20 @@ body {
     height: 0;
 }
 
+section {
+    border-bottom: 8px solid grey;
+}
+
+.check-list{
+    list-style: none;
+}
+
+.check-list li:before {
+    content: "\2713";
+    color: green;
+    padding-right: 5px;
+}
+
+.selected-card {
+    border: 2px solid blue;
+}

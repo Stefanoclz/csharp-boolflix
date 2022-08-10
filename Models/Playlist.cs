@@ -1,6 +1,7 @@
 ﻿using csharp_boolflix.DataBase;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace csharp_boolflix.Models
 {
@@ -11,6 +12,8 @@ namespace csharp_boolflix.Models
         public string Name { get; set; }
 
         public List<VideoContent> VideoContents { get; set; }
+        [NotMapped]
+        public List<int> VideosId { get; set; }
 
         public Profile? Profile { get; set; }
 

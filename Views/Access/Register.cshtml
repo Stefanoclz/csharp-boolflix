@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "_LayoutRegister";
+
+    var account = ViewData["email"] as Account;
+    string pw = "";
+}
+
+<div class="w-25 m-auto">
+    <p>Passaggio 1 di 3</p>
+    <h1>Crea una passowrd per iniziare l'abbonamento</h1>
+    <p>Mancano solo alcuni passaggi!</p>
+    <p>Anche noi detestiamo la burocrazia.</p>
+    <form asp-controller="Access" asp-action="Register2" method="post">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label asp-for="@account.Email" class="form-label">Email</label>
+            <input type="email" asp-for="@account.Email" value="@account.Email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@pw" class="form-label">Password</label>
+            <input asp-for="@pw" type="password" class="form-control" />
+        </div>
+        <input type="submit" value="Continua" class="btn btn-danger py-3 px-5" />
+    </form>
+</div>

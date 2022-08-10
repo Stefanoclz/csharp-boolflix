@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "_LayoutRegister";
+}
+
+@model Profile
+
+<div class="w-50 m-auto my-5 text-center">
+    <h1>La tua registrazione è finalmente completa!</h1>
+    <h3>Quando vorrai potrai aggiungere ulteriori profili all'interno delle impostazioni del tuo account.</h3>
+    <div class="w-100 mt-3 text-center">
+        <h1>Ora puoi iniziare ad usufruire dello streaming!</h1>
+        <button class="btn btn-danger py-3 px-5">
+            <a href="@Url.Action("Index","Home",new{id = @Model.Id})">Vai allo streaming</a>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_LayoutRegister";
+
+    var list = ViewData["films"] as List<VideoContent>;
+
+    List<VideoBool> videos = new List<VideoBool>();
+    foreach(VideoContent vid in list)
+    {
+        videos.Add(new VideoBool { videoId = vid.Id, added = false });
+    }
+}
+
+@model Profile
+
+<div class="w-75 text-center my-3 m-auto">
+    <h1>Manca poco!</h1>
+    <h2>Ora non resta che definire i tuoi gusti</h2>
+    <h4>Seleziona i contenuti che preferisci, saremo così in grado di proporti film e serie tv in base alle tue preferenze!</h4>
+    
+   
+    <div class="w-100 mt-2">
+         <form asp-controller="Access" asp-action="Playlist" method="post" class="w-100">
+            @Html.AntiForgeryToken
+            <input type="hidden" asp-for="@Model.Name" value="@Model.Name" />
+            <input type="hidden" asp-for="@Model.IsChild" value="@Model.IsChild" />
+            <input type="hidden" asp-for="@Model.Account" value="@Model.Account" />
+            <input type="hidden" asp-for="@Model.AccountId" value="@Model.AccountId" />
+            
+            <div class="d-flex flex-row w-100 flex-wrap gx-2">
+                @for(int i = 0; i < @list.Count; i++)
+                {
+                    
+                    <div class="d-flex flex-column col-2 text-center gx-2 justify-content-center align-items-center">
+                        <img src="@list[i].CoverImage" class="img-fluid w-100 h-100" />
+                        <p>@list[i].Title</p>
+                        <input asp-for="@videos[i].added" type="checkbox" value="true" class="form-check-input" />
+                        <input type="hidden" asp-for="@videos[i].videoId" class="btn-check text-center" value="@list[i].Id" />
+                    </div>
+                }
+            </div>
+            <input type="submit" value="Invia" />
+            </form>
+    </div>
+</div>
+
+
+@*<script type="text/javascript">
+
+const cards = document.querySelectorAll(".card-class");
+    
+for (let i = 0; i < cards.length; i++) {
+
+    cards[i].addEventListener("click", function() {
+        const array = @Model.VideoContents;
+        let alreadyAdd = false;
+        array.forEach(element => {
+            if (element === cards[i]) {
+                alreadyAdd = true;
+            }
+        })
+        if (alreadyAdd == false) {
+            let value = card[i].value;
+            @Model.VideoContents += value;
+            cards[i].classList.add("selected-card");
+            console.log("model.videocontents", @Model.VideoContents);
+        }
+        else {
+            let value = card[i].value;
+            @Model.VideoContents -= value;
+            cards[i].classList.remove("selected-card");
+            console.log("model.videocontents", @Model.VideoContents);
+        }
+        
+    })
+}
+    
+</script>*@

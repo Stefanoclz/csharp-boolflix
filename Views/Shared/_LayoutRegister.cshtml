@@ -9,18 +9,20 @@
     <link rel="stylesheet" href="~/csharp_boolflix.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="bg-grey d-flex flex-row justify-content-start w-100">
-        <img class="col-2" src="https://boolfix-jdonzelli.netlify.app/img/logo.png" />
-        <nav class="col-10 navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 justify-content-between">
-            
-        @RenderSection("Header")
-            
+    <header class="bg-white border-bottom">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 d-flex flex-row justify-content-between px-5">
+            <img src="https://boolfix-jdonzelli.netlify.app/img/logo.png" />
+            <button class="btn btn-danger">
+                <a href="@Url.Action("Login","Access")">
+                    ACCEDI
+                </a>
+            </button>
         </nav>
     </header>
 
-        <main role="main" class="bg-dark w-100 overflow-hidden">
-            @RenderBody()
-        </main>
+    <main role="main" class="bg-white w-100 overflow-hidden">
+        @RenderBody()
+    </main>
     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -28,4 +30,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
 

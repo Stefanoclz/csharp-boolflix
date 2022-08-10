@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="~/csharp_boolflix.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="bg-grey d-flex flex-row justify-content-start w-100">
-        <img class="col-2" src="https://boolfix-jdonzelli.netlify.app/img/logo.png" />
-        <nav class="col-10 navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 justify-content-between">
+    <header class="bg-grey">
+        <img src="https://boolfix-jdonzelli.netlify.app/img/logo.png" />
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             
-        @RenderSection("Header")
+                <a class="btn btn-primary py-2 px-4" href="@Url.Action("Index", "Films")">Film</a>
+                <a class="btn btn-primary py-2 px-4" href="@Url.Action("Index", "Genres")">Genere</a>
+                <a class="btn btn-primary py-2 px-4" href="@Url.Action("Index", "Playlists")">Playlist</a>
             
         </nav>
     </header>
@@ -28,4 +30,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
 

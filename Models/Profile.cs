@@ -9,11 +9,18 @@ namespace csharp_boolflix.Models
         public string Name { get; set; }
         public bool IsChild { get; set; }
 
+        public int AccountId { get; set; }
+        public Account? Account { get; set; }
 
-        public List<VideoContent> VideoContents { get; set; }
+        public List<VideoContent>? VideoContents { get; set; }
 
         public int? PlaylistId { get; set; }
-        public Playlist Playlist { get; set; }
+        public Playlist? Playlist { get; set; }
+
+        public Profile()
+        {
+
+        }
 
     }
 }
